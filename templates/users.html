@@ -1,0 +1,41 @@
+<!-- templates/users.html -->
+{% extends 'base.html' %}
+{% block content %}
+  <div style="max-width: 700px; margin: 40px auto; font-size: 1.1rem;">
+    <h1 style="text-align: center;">👤 Manage Users</h1>
+
+    <form method="post" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 30px;">
+      <input name="name" placeholder="Name" required style="padding: 8px;">
+      <input name="email" placeholder="Email" required style="padding: 8px;">
+      <input name="major" placeholder="Major" required style="padding: 8px;">
+      <button type="submit" style="padding: 10px; background-color: green; color: white; border: none; border-radius: 5px;">Add User</button>
+    </form>
+
+    {% if users %}
+      <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; text-align: left;">
+        <thead style="background-color: #f0f0f0;">
+          <tr>
+            <th>ID</th><th>Name</th><th>Email</th><th>Major</th><th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+            <tr>
+              <td>{{ user.user_id }}</td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.major }}</td>
+              <td><a href="{{ url_for('delete_user', user_id=user.user_id) }}" style="color: red;">🗑️ Delete</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No users found.</p>
+    {% endif %}
+
+    <div style="margin-top: 20px; text-align: center;">
+      <a href="{{ url_for('index') }}" style="color: #007bff;">← Back to Applications</a>
+    </div>
+  </div>
+{% endblock %}

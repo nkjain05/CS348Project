@@ -1,0 +1,56 @@
+<!-- templates/add_application.html -->
+{% extends 'base.html' %}
+{% block content %}
+  <div style="max-width: 600px; margin: 40px auto; font-size: 1.2rem;">
+    <h1 style="text-align: center;">Add New Application</h1>
+    <form method="post" style="display: flex; flex-direction: column; gap: 15px;">
+
+      <label>User:
+        <select name="user_id" style="width: 100%; padding: 8px;">
+          {% for user in users %}
+            <option value="{{ user.user_id }}">{{ user.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+
+      <label>Company:
+        <select name="company_id" style="width: 100%; padding: 8px;">
+          {% for company in companies %}
+            <option value="{{ company.company_id }}">{{ company.name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+
+      <label>Status:
+        <select name="status_id" style="width: 100%; padding: 8px;">
+          {% for status in statuses %}
+            <option value="{{ status.status_id }}">{{ status.status_name }}</option>
+          {% endfor %}
+        </select>
+      </label>
+
+      <label>Position Title:
+        <input type="text" name="position_title" style="width: 100%; padding: 8px;">
+      </label>
+
+      <label>Applied Date:
+        <input type="date" name="applied_date" style="width: 100%; padding: 8px;">
+      </label>
+      
+      <label>Response Date:
+        <input type="date" name="response_date" style="width: 100%; padding: 8px;">
+      </label>
+      
+      
+      <label>Link to Posting:
+        <input type="text" name="link_to_posting" style="width: 100%; padding: 8px;">
+      </label>
+
+      <button type="submit" style="padding: 10px; background-color: #007bff; color: white; font-size: 1rem; border: none; border-radius: 5px;">Add</button>
+    </form>
+
+    <div style="margin-top: 20px; text-align: center;">
+      <a href="{{ url_for('index') }}" style="color: #007bff;">← Back to Applications</a>
+    </div>
+  </div>
+{% endblock %}

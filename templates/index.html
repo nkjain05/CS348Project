@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="max-width: 800px; margin: 40px auto; text-align: center; font-family: 'Segoe UI', sans-serif;">
+  
+  <h1 style="font-size: 2.5rem; margin-bottom: 30px;">📄 All Applications</h1>
+
+  <!-- 🔽 Filter by user dropdown -->
+  <form method="get" style="margin-bottom: 30px;">
+    <label for="user_id" style="font-size: 1.1rem; margin-right: 10px;">Filter by User:</label>
+    <select name="user_id" id="user_id" onchange="this.form.submit()" style="padding: 8px; font-size: 1rem;">
+      <option value="">-- All Users --</option>
+      {% for user in users %}
+        <option value="{{ user.user_id }}" {% if user.user_id == selected_user_id %}selected{% endif %}>
+          {{ user.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </form>
+
+  <!-- 🔘 Navigation buttons -->
+  <div style="margin-bottom: 20px;">
+    <a href="{{ url_for('add_application') }}" style="margin-right: 15px; font-size: 1.1rem; color: #007bff;">➕ Add Application</a>
+    |
+    <a href="{{ url_for('view_users') }}" style="margin-left: 15px; font-size: 1.1rem; color: #007bff;">👤 Edit Users</a>
+    |
+    <a href="{{ url_for('view_companies') }}" style="margin-left: 15px; font-size: 1.1rem; color: #007bff;">🏢 Manage Companies</a>
+    | 📊 <a href="{{ url_for('report') }}">View Reports</a>
+
+  </div>
+
+  <!-- 📝 Application Cards -->
+  <div style="text-align: left; margin-top: 20px;">
+    {% if applications %}
+      {% for app in applications %}
+        <div style="padding: 20px; border: 1px solid #ccc; border-radius: 10px; margin-bottom: 20px;">
+          <p style="font-size: 1.2rem;">
+            <strong>{{ app.position_title }}</strong> at <strong>{{ app.company.name }}</strong>
+            <span style="color: gray;">({{ app.status.status_name }})</span>
+          </p>
+          <p style="margin: 5px 0;"><strong>Applied:</strong> {{ app.applied_date }} | <strong>Response:</strong> {{ app.response_date }}</p>
+          <p style="margin: 5px 0;"><a href="{{ app.link_to_posting }}" target="_blank">🔗 Job Posting</a></p>
+          <div style="margin-top: 10px;">
+            <a href="{{ url_for('edit_application', id=app.application_id) }}" style="margin-right: 15px; color: green;">✏️ Edit</a>
+            <a href="{{ url_for('delete_application', id=app.application_id) }}" style="color: red;">🗑️ Delete</a>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="text-align: center;">No applications found for this user.</p>
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}
