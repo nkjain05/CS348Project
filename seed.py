@@ -1,4 +1,4 @@
-from app import app, db, User, Company, Status
+from api.app import app, db, User, Company, Status
 
 with app.app_context():
     db.create_all()
