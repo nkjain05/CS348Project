@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: internship-tracker
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn api.index:app"
+    envVars:
+      - key: FLASK_ENV
+        value: production
