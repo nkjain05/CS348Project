@@ -4,6 +4,11 @@ from flask_migrate import Migrate
 from sqlalchemy import text
 from collections import Counter
 from datetime import datetime
+import os
+
+db_path = os.path.join(os.path.dirname(__file__), '..', 'instance', 'tracker.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.abspath(db_path)}'
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tracker.db'
